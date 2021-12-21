@@ -1,4 +1,4 @@
-import { SignUpController } from '@/presentation/controllers/signup'
+import { SignUpController } from '@/presentation/controllers'
 
 const makeSut = (): SignUpController => {
   return new SignUpController()
