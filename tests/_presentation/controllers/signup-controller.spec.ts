@@ -9,7 +9,7 @@ type SutResponse = {
 
 const makeSut = (): SutResponse => {
   class EmailValidatorStub implements EmailValidator {
-    isValid (email): boolean {
+    isValid(email): boolean {
       return true
     }
   }
@@ -17,11 +17,14 @@ const makeSut = (): SutResponse => {
   const emailValidator = new EmailValidatorStub()
   const sut = new SignUpController(emailValidator)
   return {
-    sut, emailValidator: emailValidator
+    sut,
+    emailValidator: emailValidator
   }
 }
 
-const mockHttpPostRequest = (params: Record<string, string>): Record<string, any> => ({
+const mockHttpPostRequest = (
+  params: Record<string, string>
+): Record<string, any> => ({
   body: {
     ...params
   }
@@ -99,5 +102,23 @@ describe('SignUpController', () => {
     const response = await sut.handle(httpRequest)
     expect(response.statusCode).toBe(400)
     expect(response.body).toEqual(new InvalidParamError('email'))
+  })
+
+  test('Should call email validator with correct email', async () => {
+    const { sut, emailValidator } = makeSut()
+
+    const email = 'any_email'
+
+    const httpRequest = mockHttpPostRequest({
+      email,
+      password: 'any_password',
+      passwordConfirmation: 'any_password',
+      name: 'any_name'
+    })
+
+    const isValidSpy = jest.spyOn(emailValidator, 'isValid')
+
+    await sut.handle(httpRequest)
+    expect(isValidSpy).toHaveBeenCalledWith(email)
   })
 })
