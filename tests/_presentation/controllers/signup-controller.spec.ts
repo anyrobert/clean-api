@@ -8,7 +8,7 @@ import { EmailValidator } from '@/presentation/protocols'
 
 type SutResponse = {
   sut: SignUpController
-  emailValidator: EmailValidator
+  emailValidatorStub: EmailValidator
 }
 
 const makeEmaiLValidator = (): EmailValidator => {
@@ -25,7 +25,7 @@ const makeSut = (): SutResponse => {
   const sut = new SignUpController(emailValidator)
   return {
     sut,
-    emailValidator: emailValidator
+    emailValidatorStub: emailValidator
   }
 }
 
@@ -95,7 +95,7 @@ describe('SignUpController', () => {
   })
 
   test('Should return 400 an invalid email is provided', async () => {
-    const { sut, emailValidator } = makeSut()
+    const { sut, emailValidatorStub: emailValidator } = makeSut()
 
     const httpRequest = mockHttpPostRequest({
       email: 'invalid_email',
@@ -127,7 +127,7 @@ describe('SignUpController', () => {
   })
 
   test('Should call email validator with correct email', async () => {
-    const { sut, emailValidator } = makeSut()
+    const { sut, emailValidatorStub: emailValidator } = makeSut()
 
     const email = 'any_email'
 
@@ -145,7 +145,7 @@ describe('SignUpController', () => {
   })
 
   test('Should return 500 if email validator throws', async () => {
-    const { sut, emailValidator } = makeSut()
+    const { sut, emailValidatorStub: emailValidator } = makeSut()
 
     jest.spyOn(emailValidator, 'isValid').mockImplementationOnce(() => {
       throw new Error()
