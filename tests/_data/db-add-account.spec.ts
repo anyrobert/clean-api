@@ -1,7 +1,8 @@
-import { AddAccountModel } from '@/domain/usecases'
-
-import { DbAddAccount } from '@/data/usecases'
-import { Encrypter } from '@/data/protocols'
+import {
+  AddAccountModel,
+  DbAddAccount,
+  Encrypter
+} from '@/data/usecases/add-account'
 
 const mockAccountModel = (): AddAccountModel => ({
   name: 'valid_name',
