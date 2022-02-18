@@ -1,6 +1,6 @@
 {
   "name": "clean-api",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -14,8 +14,7 @@
     "test:unit": "npm run test -- -c jest-unit.config.js",
     "test:unit:watch": "npm run test:unit -- --watch"
   },
-  "keywords": [],
-  "author": "",
+  "author": "Robert Gabriel",
   "license": "ISC",
   "devDependencies": {
     "@types/jest": "^27.0.3",
