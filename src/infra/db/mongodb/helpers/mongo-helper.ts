@@ -2,8 +2,8 @@ import { Collection, MongoClient, Document } from 'mongodb'
 
 export const MongoHelper = {
   client: null as MongoClient,
-  async connect(): Promise<void> {
-    this.client = await MongoClient.connect(process.env.MONGO_URL)
+  async connect(url?: string): Promise<void> {
+    this.client = await MongoClient.connect(url ?? process.env.MONGO_URL)
   },
   async disconnect(): Promise<void> {
     await this.client.close()
